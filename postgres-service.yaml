@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      # В Kubernetes NodePort должен быть в диапазоне 30000-32767
+      nodePort: 30432
+  type: NodePort
+
+

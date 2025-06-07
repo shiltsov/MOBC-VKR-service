@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-collectstatic
+spec:
+  backoffLimit: 10
+  template:
+    spec:
+      containers:
+        - name: collectstatic
+          image: django-app:latest
+          imagePullPolicy: Never 
+          command: ["python", "manage.py", "collectstatic", "--noinput"]
+          envFrom:
+            - configMapRef:
+                name: django-config
+            - secretRef:
+                name: database-secret
+          volumeMounts:
+            - name: static-volume
+              mountPath: /app/staticfiles  
+      restartPolicy: OnFailure
+      volumes:
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-pvc
