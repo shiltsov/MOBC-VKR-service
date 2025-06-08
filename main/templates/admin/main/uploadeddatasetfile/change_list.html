@@ -1,0 +1,14 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools %}
+    {{ block.super }}
+    {% if train_model_form %}
+    <li>
+        <form method="post" action="{% url 'admin:train-model' %}" style="display: inline;">
+            {% csrf_token %}
+            <input type="number" name="epochs" min="1" max="1000" value="5" style="width: 60px;">
+            <button type="submit" class="button">Обучить модель</button>
+        </form>
+    </li>
+    {% endif %}
+{% endblock %}

@@ -1,1 +1,48 @@
-<h1>Invalid query!</h1>
+<html>
+<head>
+    <title>Ошибка</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F6FF;
+            color: #0050CF;
+            margin: 40px;
+        }
+
+        a {
+            color: #0050CF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #0050CF;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>Произошла ошибка</h1>
+        <p class="message">{{ message }}</p>
+        <a href="/">Вернуться на главную</a>
+    </div>
+</body>
+</html>
+

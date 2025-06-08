@@ -18,7 +18,7 @@ spec:
           imagePullPolicy: Never 
           command: ["/bin/sh", "-c"]
           args:
-            - celery -A review2 worker --loglevel=info
+            - celery -A extractor worker --loglevel=info --concurrency=1
           envFrom:
             - configMapRef:
                 name: django-config
@@ -27,6 +27,13 @@ spec:
           volumeMounts:
             - name: model-volume
               mountPath: /app/model  
+          resources:
+            requests:
+              memory: "18Gi"
+              cpu: "500m"
+            limits:
+              memory: "24Gi"
+              cpu: "4"          
       volumes:
         - name: model-volume
           persistentVolumeClaim:

@@ -3,17 +3,19 @@ kind: Job
 metadata:
   name: django-migrate
 spec:
-  backoffLimit: 15 # ск пытаться повторить если сразу не выходит
+  backoffLimit: 15  # сколько раз пытаться, если ошибка
   template:
     spec:
       containers:
         - name: migrate
           image: django-app:latest
           imagePullPolicy: Never 
-          command: ["python", "manage.py", "migrate"]
+          command: ["sh", "-c", "python manage.py makemigrations && python manage.py migrate"]
+          # command: ["python", "manage.py", "migrate"]
           envFrom:
             - configMapRef:
                 name: django-config
             - secretRef:
                 name: database-secret
       restartPolicy: OnFailure
+

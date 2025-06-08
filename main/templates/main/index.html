@@ -1,46 +1,84 @@
-<!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Статус задачи</title>
+    <title>Главная — Построение сценического графа</title>
     <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F6FF;
+            color: #0050CF;
+            margin: 40px;
         }
-        th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
+
+        a {
+            color: #0050CF;
+            text-decoration: none;
+            font-weight: bold;
         }
-        th {
-            background-color: #f4f4f4;
+
+        h1 {
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            width: 80%;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .description {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #0050CF;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            height: 30px;
+            padding: 5px 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #0050CF;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #003fa3;
         }
     </style>
 </head>
 <body>
+    <div class="section">
+        <a href="/">Главная</a>
+        <h1>Введите описание сцены:</h1>
 
-<h3>МОВС-23 Шильцов Дмитрий</h3>
+        <p class="description">
+            Прототип сервиса выделения объектов и признаков из текстового описания сцены на русском языке.
+        </p>
 
-<a href="/">Главная</a> | <a href="/train">Тренировать</a> | <a href="/task_list">Смотреть очередь</a>
-
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-<h1>Type your wikipedia page address here:</h1>
-<form action="{% url 'main:similar' %}" method="get">
-    <input size="70" style= "height: 30px;" type="text" name="url" />
-    <select style= "height: 30px; width: 70px;" name="cnt">
-        <option selected value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-   </select>
-</form>
-<br><br>
-<h3>Статика:</h3>
-<img src="/static/main/racat.jpg">
-
+        <form action="{% url 'main:predict' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="description" placeholder="Опишите сцену..." />
+            <input type="submit" value="Построить граф">
+        </form>
+    </div>
 </body>
 </html>
+

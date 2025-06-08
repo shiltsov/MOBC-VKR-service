@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-createsuperuser
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      containers:
+        - name: createsuperuser
+          image: django-app:latest
+          imagePullPolicy: Never
+          command: ["python", "manage.py", "createsuperuser", "--noinput"]
+          envFrom:
+            - configMapRef:
+                name: django-config
+            - secretRef:
+                name: database-secret
+      restartPolicy: OnFailure

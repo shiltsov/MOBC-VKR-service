@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q*0k1$li$e6zj7@$@u^zs*9zg9t-fuj*^!(xxizd!^x%usqt%+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+
 
 
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_prometheus',
+
 ]
 
 MIDDLEWARE = [
@@ -95,7 +96,6 @@ CELERY_BROKER_URL = "pyamqp://guest:guest@rabbitmq//"
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -128,6 +128,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+
+# файлы для дообучения
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-loader
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      containers:
+        - name: loader
+          image: django-app:latest
+          imagePullPolicy: Never
+          command: ["sh", "-c", "cp -r /tmp/bundled-model/* /mnt/model"]
+          volumeMounts:
+            - name: model-volume
+              mountPath: /mnt/model
+      restartPolicy: Never
+      volumes:
+        - name: model-volume
+          persistentVolumeClaim:
+            claimName: model-pvc

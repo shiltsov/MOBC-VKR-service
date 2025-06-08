@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. Запускаем Minikube
-minikube start --driver=docker
+minikube start --cpus=6 --memory=16g --driver=docker
 minikube addons enable ingress
 
 # 2. Используем внутренний Docker-демон Minikube
@@ -24,6 +24,8 @@ kubectl apply -f postgres-service.yaml
 
 kubectl apply -f django-collectstatic-job.yaml
 kubectl apply -f django-migrate-job.yaml
+kubectl apply -f createsuperuser-job.yaml
+kubectl apply -f model-loader-job.yaml
 
 kubectl apply -f django-deployment.yaml
 kubectl apply -f static-deployment.yaml
@@ -42,6 +44,9 @@ kubectl apply -f postgres-exporter.yaml
 # Джанго не требует отдельного контейнера, встраивается в джанго
 kubectl apply -f prometheus.yaml
 kubectl apply -f grafana.yaml
+
+minikube service grafana --url
+minikube service prometheus --url
 
 # прописыаем в хостc
 echo "$(minikube ip) django.local" | sudo tee -a /etc/hosts

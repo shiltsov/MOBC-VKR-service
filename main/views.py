@@ -23,6 +23,10 @@ from tqdm import tqdm
 
 import matplotlib.pyplot as plt
 
+# логируем обращения
+from .models import LogEntry
+
+
 # отключаем их все чтобы картинку не портили
 warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -127,24 +131,12 @@ def predict(description, max_length=OUTPUT_SEQ_LENGTH):
         print("Сырые данные:", output_text)
         parsed_json = None
 
+    LogEntry.objects.create(
+        user_input=description,
+        result_json=parsed_json
+    )
+
     return output_text, parsed_json
-
-
-# отправить на дообучение
-def train(request):
-    task = TaskStatus.objects.create(status="Pending")
-
-    # отправляем задачу в очередь
-    train_model.delay(task.task_id)
-
-    return render(request, 'main/train.html')
-
-
-# посмотреть текущий список задач 
-def get_task_list(request):
-    """Список всех задач в виде HTML-таблицы"""
-    tasks = TaskStatus.objects.all().order_by('-created_at') 
-    return render(request, "main/task_list.html", {"tasks": tasks})
 
 
 def index(request):
@@ -182,5 +174,11 @@ def get_predict(request):
         "image_base64": image_base64
     }
     return render(request, "main/predict.html", context)
+
+
+
+
+
+
 
 

@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>Построение сценического графа по описанию сцены</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F6FF;
+            color: #0050CF;
+            margin: 40px;
+        }
+
+        a {
+            color: #0050CF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h3, h4 {
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        td, th {
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        tr:first-child td {
+            font-weight: bold;
+            text-align: left;
+            color: black;
+            padding-left: 10px;
+        }
+
+        td:first-child {
+            width: 50%;
+            padding-left: 10px;
+        }
+
+        td:last-child {
+            width: 50%;
+            text-align: center;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #F9FBFF;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            color: #0050CF;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .section {
+            width: 80%;
+            margin: 0 auto 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <a href="/">Главная</a>
+
+        <h3>Построение графа сцены:</h3>
+
+        <h4>Текстовое описание:</h4>
+        <p>{{ description }}</p>
+
+        <h4>Псевдокод, выдаваемый моделью:</h4>
+        <p>{{ output_text }}</p>
+
+        <table>
+            <tr>
+                <td>Предсказанный JSON</td>
+                <td>Сценический граф</td>
+            </tr>
+            <tr>
+                <td><pre>{{ json_text }}</pre></td>
+                <td><img src="data:image/png;base64,{{ image_base64 }}" alt="Граф сцены"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
